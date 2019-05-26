@@ -5,6 +5,7 @@ import {
 } from "../interfaces/CoursesPageInterfaces";
 
 type TextChangedEvent = React.ChangeEvent<HTMLInputElement>;
+type ClickEvent = React.FormEvent<HTMLFormElement>;
 
 class CoursesPage extends React.Component<
   ICoursesPageProps,
@@ -21,9 +22,14 @@ class CoursesPage extends React.Component<
     this.setState({ course });
   };
 
+  handleSubmit = (event: ClickEvent) => {
+    event.preventDefault();
+    alert(this.state.course.title);
+  };
+
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <h2>Courses</h2>
         <h3>Add course</h3>
         <input
