@@ -1,7 +1,7 @@
 import { ICourse } from "../../components/interfaces/CoursesPageInterfaces";
 
 export interface CoursesPageState {
-  courses: ICourse;
+  courses: ICourse[];
 }
 
 export interface CreateCourseAction {
