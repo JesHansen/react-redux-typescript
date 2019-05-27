@@ -5,4 +5,5 @@ const rootReducer = combineReducers({
   courses: coursesReducer
 });
 
+export type AppState = ReturnType<typeof rootReducer>;
 export default rootReducer;
