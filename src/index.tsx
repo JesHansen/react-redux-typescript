@@ -5,14 +5,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./components/App";
 import "./index.css";
 import configureStore from "./redux/configureStore";
-import { CoursesPageState } from "./redux/courses/interfaces";
 import { Provider as ReduxProvider } from "react-redux";
 
-const initialState: CoursesPageState = {
-  courses: [{ title: "" }]
-};
-
-const store = configureStore({ courses: initialState });
+const store = configureStore({ courses: [] });
 
 render(
   <ReduxProvider store={store}>

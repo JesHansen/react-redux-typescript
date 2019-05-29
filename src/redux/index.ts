@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import coursesReducer from "./courses/reducers/courseReducer";
+import courses from "./reducers/courseReducer";
 
 const rootReducer = combineReducers({
-  courses: coursesReducer
+  courses
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

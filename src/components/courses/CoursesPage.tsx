@@ -1,30 +1,32 @@
 import React from "react";
 import {
-  ICoursesPageProps,
-  ICoursesPageState
-} from "../interfaces/CoursesPageInterfaces";
+  CoursesPageProps,
+  CoursesPageDispatchProps,
+  Course,
+  TextChangedEvent,
+  ClickEvent
+} from "../../interfaces";
 
-type TextChangedEvent = React.ChangeEvent<HTMLInputElement>;
-type ClickEvent = React.FormEvent<HTMLFormElement>;
+import { connect } from "react-redux";
+import * as courseActions from "../../redux/actions/courseActions";
+import { AppState } from "../../redux";
 
 class CoursesPage extends React.Component<
-  ICoursesPageProps,
-  ICoursesPageState
+  CoursesPageProps & CoursesPageDispatchProps,
+  Course
 > {
-  state: ICoursesPageState = {
-    course: {
-      title: ""
-    }
+  state = {
+    title: ""
   };
 
   handleChange = (event: TextChangedEvent) => {
-    const course = { ...this.state.course, title: event.target.value };
-    this.setState({ course });
+    this.setState({ title: event.target.value });
   };
 
   handleSubmit = (event: ClickEvent) => {
     event.preventDefault();
-    alert(this.state.course.title);
+    this.props.dispatch(courseActions.createCourse(this.state));
+    this.setState({ title: "" });
   };
 
   render() {
@@ -35,12 +37,20 @@ class CoursesPage extends React.Component<
         <input
           type="text"
           onChange={this.handleChange}
-          value={this.state.course.title}
+          value={this.state.title}
         />
         <input type="submit" value="Save" />
+        {this.props.courses.map(x => (
+          <div key={x.title}>{x.title}</div>
+        ))}
       </form>
     );
   }
 }
 
-export default CoursesPage;
+function mapStateToProps(state: AppState): CoursesPageProps {
+  const { courses } = state;
+  return { courses };
+}
+
+export default connect(mapStateToProps)(CoursesPage);
