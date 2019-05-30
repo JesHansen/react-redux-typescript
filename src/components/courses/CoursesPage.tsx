@@ -24,8 +24,9 @@ class CoursesPage extends React.Component<
   };
 
   handleSubmit = (event: ClickEvent) => {
+    debugger;
     event.preventDefault();
-    this.props.dispatch(courseActions.createCourse(this.state));
+    this.props.createCourse(this.state);
     this.setState({ title: "" });
   };
 
@@ -48,9 +49,19 @@ class CoursesPage extends React.Component<
   }
 }
 
+function mapDispatchToProps(dispatch: Function) {
+  return {
+    createCourse: (course: Course) =>
+      dispatch(courseActions.createCourse(course))
+  };
+}
+
 function mapStateToProps(state: AppState): CoursesPageProps {
   const { courses } = state;
   return { courses };
 }
 
-export default connect(mapStateToProps)(CoursesPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CoursesPage);

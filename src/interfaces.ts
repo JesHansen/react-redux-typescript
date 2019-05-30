@@ -3,7 +3,7 @@ export interface CoursesPageProps {
 }
 
 export interface CoursesPageDispatchProps {
-  dispatch: Function;
+  createCourse: Function;
 }
 
 export interface Course {
